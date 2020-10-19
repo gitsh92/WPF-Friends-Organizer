@@ -1,5 +1,7 @@
 ﻿using FriendOrganizer.Model;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.IO;
 
 namespace FriendOrganizer.DataAccess
 {
@@ -9,7 +11,11 @@ namespace FriendOrganizer.DataAccess
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-      optionsBuilder.UseSqlite("Data Source=FriendOrganizer.db");
+      string dbFile = "FriendOrganizer.db";
+      string exDir = AppDomain.CurrentDomain.BaseDirectory;
+      string dbPath = Path.Combine(exDir, dbFile);
+
+      optionsBuilder.UseSqlite($"Data Source={dbPath}");
       optionsBuilder.UseLazyLoadingProxies();
       base.OnConfiguring(optionsBuilder);
     }
