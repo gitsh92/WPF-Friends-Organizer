@@ -2,6 +2,7 @@
 using FriendOrganizer.Model;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 
 namespace FriendOrganizer.UI.Data
@@ -25,6 +26,8 @@ namespace FriendOrganizer.UI.Data
 
     public async Task SaveAsync(Friend friend)
     {
+      //validateFriend(friend);
+
       using (var ctx = _contextCreator())
       {
         ctx.Friends.Attach(friend);
@@ -32,5 +35,14 @@ namespace FriendOrganizer.UI.Data
         await ctx.SaveChangesAsync();
       }
     }
+
+    //// Less than ideal to separate validation from the model definition,
+    //// but the Required attribute of EFCore does not reject empty strings
+    //// so this manual check is needed
+    //private void validateFriend(Friend friend)
+    //{
+    //  if (string.IsNullOrEmpty(friend.FirstName))
+    //    throw new ValidationException("FirstName is required.");
+    //}
   }
 }
