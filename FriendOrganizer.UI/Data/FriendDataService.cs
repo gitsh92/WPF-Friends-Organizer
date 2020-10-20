@@ -2,7 +2,6 @@
 using FriendOrganizer.Model;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace FriendOrganizer.UI.Data
@@ -21,6 +20,16 @@ namespace FriendOrganizer.UI.Data
       {
         return await ctx.Friends.AsNoTracking()
           .SingleOrDefaultAsync(f => f.Id == friendId);
+      }
+    }
+
+    public async Task SaveAsync(Friend friend)
+    {
+      using (var ctx = _contextCreator())
+      {
+        ctx.Friends.Attach(friend);
+        ctx.Entry(friend).State = EntityState.Modified;
+        await ctx.SaveChangesAsync();
       }
     }
   }
