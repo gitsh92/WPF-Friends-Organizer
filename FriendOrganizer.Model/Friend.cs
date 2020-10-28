@@ -16,5 +16,9 @@ namespace FriendOrganizer.Model
     [StringLength(50, ErrorMessage = "Email cannot exceed {1} characters")]
     [EmailAddress]
     public string Email { get; set; }
+
+    public int? FavoriteLanguageId { get; set; }
+
+    public virtual ProgrammingLanguage FavoriteLanguage { get; set; }
   }
 }
