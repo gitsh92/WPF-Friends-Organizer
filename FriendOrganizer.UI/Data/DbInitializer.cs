@@ -11,7 +11,7 @@ namespace FriendOrganizer.UI.Data
   public class DbInitializer : IDbInitializer
   {
     private readonly Func<FriendOrganizerDbContext> _contextCreator;
-    private List<string> _args;
+    private readonly List<string> _args;
 
     public DbInitializer(Func<FriendOrganizerDbContext> contextCreator)
     {
@@ -32,7 +32,7 @@ namespace FriendOrganizer.UI.Data
       else if (_args.Any(a => a.ToLowerInvariant() == "--delete-db"))
         removeDb();
       else
-        return;
+        return; // no shutdown
 
       Application.Current.Shutdown();
     }
@@ -48,6 +48,13 @@ namespace FriendOrganizer.UI.Data
           new Friend { FirstName = "Jordy", LastName = "Jurick" },
           new Friend { FirstName = "Squirrel", LastName = "Garden" },
           new Friend { FirstName = "Magpie", LastName = "Garden" }
+        );
+        conn.ProgrammingLanguages.AddRange(
+          new ProgrammingLanguage { Name = "C#" },
+          new ProgrammingLanguage { Name = "TypeScript" },
+          new ProgrammingLanguage { Name = "C++" },
+          new ProgrammingLanguage { Name = "Java" },
+          new ProgrammingLanguage { Name = "Swift" }
         );
         conn.SaveChanges();
       }
