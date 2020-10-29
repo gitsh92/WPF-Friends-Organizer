@@ -43,6 +43,7 @@ namespace FriendOrganizer.UI.Data
       {
         conn.Database.EnsureDeleted();
         conn.Database.Migrate();
+
         conn.Friends.AddRange(
           new Friend { FirstName = "Stuart", LastName = "Huggins" },
           new Friend { FirstName = "Jordy", LastName = "Jurick" },
@@ -55,6 +56,15 @@ namespace FriendOrganizer.UI.Data
           new ProgrammingLanguage { Name = "C++" },
           new ProgrammingLanguage { Name = "Java" },
           new ProgrammingLanguage { Name = "Swift" }
+        );
+        conn.SaveChanges();
+
+        conn.FriendPhoneNumbers.Add(
+          new FriendPhoneNumber
+          {
+            Number = "+49 12345678",
+            FriendId = conn.Friends.First().Id
+          }
         );
         conn.SaveChanges();
       }

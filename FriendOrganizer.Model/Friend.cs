@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace FriendOrganizer.Model
 {
@@ -20,5 +22,9 @@ namespace FriendOrganizer.Model
     public int? FavoriteLanguageId { get; set; }
 
     public virtual ProgrammingLanguage FavoriteLanguage { get; set; }
+
+    public virtual ICollection<FriendPhoneNumber> PhoneNumbers { get; set; }
+      = new Collection<FriendPhoneNumber>();
+
   }
 }
